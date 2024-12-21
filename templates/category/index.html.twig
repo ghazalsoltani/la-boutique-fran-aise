@@ -10,8 +10,11 @@
         <div class="row">
             {% for product in category.products %}
                 <div class="col-md-3 text-center">
-                    <img src="/uploads/{{ product.illustration }}" class="img-fluid">
-                   <strong>{{ product.name }}</strong>
+                    <a href="{{ path('app_product', { slug : product.slug }) }}" class="text-decoration-none">
+                        <img src="/uploads/{{ product.illustration }}" class="img-fluid">
+                        <span class="d-block fw-bold text-black">{{ product.name }}</span>
+                    </a>
+
                     <span class="d-block">{{ product.pricewt }}</span>
                 </div>
 
