@@ -12,7 +12,7 @@
                 <small><i><a href="{{ path('app_category', {slug : product.category.slug}) }}"> {{ product.category.name }}</a> > {{ product.name }}
                     </i></small>
                 <h1>{{ product.name }}</h1>
-                <span class="d-block mb-3">{{ product.price }}</span>
+                <span class="d-block mb-3">{{ product.pricewt|price }}</span>
                 {{ product.description|raw }}
                 <button class="btn btn-dark w-100 mt-3">Ajouter au panier</button>
             </div>
