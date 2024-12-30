@@ -42,7 +42,9 @@
                         <a href="{{ path('app_login') }}"><i data-feather="user"></i></a>
                     {%  endif %}
 
-                    <a href="{{ path('app_cart') }}"><i data-feather="shopping-cart"></i></a>
+                    <a href="{{ path('app_cart') }}">
+                        <i data-feather="shopping-cart"></i></a>
+                        <span class="badge text-bg-light">{{ fullCartQuantity }}</span>
                 </div>
             </div>
         </div>

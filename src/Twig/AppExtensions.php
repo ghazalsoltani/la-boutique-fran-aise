@@ -2,6 +2,7 @@
 
 namespace App\Twig;
 
+use App\Classe\Cart;
 use App\Repository\CategoryRepository;
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
@@ -10,11 +11,13 @@ use Twig\TwigFilter;
 class AppExtensions extends AbstractExtension implements GlobalsInterface
 {
     private $categoryRepository;
+    private $cart;
     //Constructor for dependency injection of CategoryRepository
-    public function __construct(CategoryRepository $categoryRepository)
+    public function __construct(CategoryRepository $categoryRepository, Cart $cart)
     {
         //store the injected repository in the private property
         $this->categoryRepository = $categoryRepository;
+        $this->cart = $cart;
     }
     /**
      * @return TwigFilter[]
@@ -53,7 +56,8 @@ class AppExtensions extends AbstractExtension implements GlobalsInterface
     {
         return [
             // Define a global variable "allCategories" containing all categories from the repository
-            'allCategories' => $this->categoryRepository->findAll()
+            'allCategories' => $this->categoryRepository->findAll(),
+            'fullCartQuantity' => $this->cart->fullQuantity()
         ];
     }
 }
