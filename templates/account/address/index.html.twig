@@ -11,7 +11,7 @@
             </div>
             <div class="col-md-9">
                 <div class="d-flex justify-content-between">
-                    <h5>Mes addresses</h5>
+                    <h5>Mes adresses</h5>
                     <a href="{{ path('app_account_address_form') }}" class="btn btn-light">Ajouter une adresse</a>
                 </div>
 
@@ -25,19 +25,14 @@
                                     <strong>{{ address.firstname }} {{ address.lastname }}</strong><br/>
                                     {{ address.address }}<br/>
                                     {{ address.postal }}, {{ address.city }}<br/>
-                                    {{ address.country }}<br>
-                                    <a href="{{ path('app_account_address_form', { id : address.id }) }}"
-                                       class="small text-secondary">Éditer</a>
-                                    <a href="{{ path('app_account_address_delete', { id : address.id }) }}"
-                                       class="small text-secondary">Supprimer</a>
+                                    {{ address.country }}<br/>
+                                    <a href="{{ path('app_account_address_form', { id : address.id } ) }}" class="small text-secondary">Éditer</a>
+                                    <a href="{{ path('app_account_address_delete', { id : address.id } ) }}" class="small text-secondary">Supprimer</a>
                                 </div>
                             </div>
                         {% endfor %}
                     </div>
-
-
                 {% endif %}
-
 
             </div>
         </div>
