@@ -20,7 +20,7 @@ class OrderDetail
     private ?string $productName = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $product = null;
+    private ?string $productIllustration = null;
 
     #[ORM\Column]
     private ?int $productQuantity = null;
@@ -60,14 +60,14 @@ class OrderDetail
         return $this;
     }
 
-    public function getProduct(): ?string
+    public function getIllustration(): ?string
     {
-        return $this->product;
+        return $this->productIllustration;
     }
 
-    public function setProduct(string $product): static
+    public function setProductIllustration(string $productIllustration): static
     {
-        $this->product = $product;
+        $this->productIllustration = $productIllustration;
 
         return $this;
     }

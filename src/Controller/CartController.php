@@ -31,7 +31,7 @@ class CartController extends AbstractController
         // Flash a success message to inform the user
         $this->addFlash(
             'success',
-            'Produit correctement ajouté à votre panier.'
+            "Produit correctement ajouté à votre panier."
         );
         // Redirect back to the product page
         return $this->redirect($request->headers->get('referer'));
