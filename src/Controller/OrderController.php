@@ -55,14 +55,19 @@ class OrderController extends AbstractController
 
         if ($form->isSubmitted() & $form->isValid()) {
 
+            // Création de la chaîne adresse
             $addressObj = $form->get('addresses')->getData();
+
             $address = $addressObj->getFirstname().' '.$addressObj->getLastname().'<br/>';
             $address .= $addressObj->getAddress().'<br/>';
             $address .= $addressObj->getPostal().' '.$addressObj->getCity().'<br/>';
+            $address .= $addressObj->getCountry().'<br/>';
             $address .= $addressObj->getPhone();
 
+
             $order = new Order();
-            $order->setCreatAt(new \DateTime());
+            $order->setUser($this->getUser());
+            $order->setCreatedAt(new \DateTime());
             $order->setState('1');
             $order->setCarrierName($form->get('carriers')->getData()->getName());
             $order->setCarrierPrice($form->get('carriers')->getData()->getPrice());

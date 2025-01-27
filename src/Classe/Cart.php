@@ -8,38 +8,38 @@ class Cart
 {
     public function __construct(private RequestStack $requestStack)
     {
-        // Inject the RequestStack to handle session operations
+
     }
 
     /*
      * add()
-     * Function to add a product to the shopping cart.
+     * Fonction permettant l'ajout d'un produit au panier
      */
     public function add($product)
     {
-        // Retrieve the current cart from the session or initialize a new one
+        // Appeler la session CART de symfony
         $cart = $this->getCart();
-        // Check if the product is already in the cart
+
+        // Ajouter une qtity +1 à mon produit
         if (isset($cart[$product->getId()])) {
-            // Increment the quantity of the existing product
             $cart[$product->getId()] = [
                 'object' => $product,
                 'qty' => $cart[$product->getId()]['qty'] + 1
             ];
         } else {
-            // Add the product to the cart with a quantity of 1
             $cart[$product->getId()] = [
                 'object' => $product,
-                'qty' => 1,
+                'qty' => 1
             ];
         }
-        // Save the updated cart back to the session
+
+        // Créer ma session Cart
         $this->requestStack->getSession()->set('cart', $cart);
     }
 
     /*
      * decrease()
-     * Function to remove the full quantity of a product from the shopping cart.
+     * Fonction permettant la suppression d'une quantity d'un produit au panier
      */
     public function decrease($id)
     {
@@ -50,12 +50,13 @@ class Cart
         } else {
             unset($cart[$id]);
         }
+
         $this->requestStack->getSession()->set('cart', $cart);
     }
 
     /*
      * fullQuantity()
-     * Function to return the total number of products in the shopping cart.
+     * Fonction retournant le nombre total de produit au panier
      */
     public function fullQuantity()
     {
@@ -65,16 +66,17 @@ class Cart
         if (!isset($cart)) {
             return $quantity;
         }
+
         foreach ($cart as $product) {
             $quantity = $quantity + $product['qty'];
-
         }
+
         return $quantity;
     }
 
     /*
      * getTotalWt()
-     * Function to return the total price of the shopping cart.
+     * Fonction retournant le prix total des produits au panier
      */
     public function getTotalWt()
     {
@@ -85,10 +87,8 @@ class Cart
             return $price;
         }
 
-        {
-            foreach ($cart as $product) {
-                $price = $price + ($product['object']->getPriceWt() * $product['qty']);
-            }
+        foreach ($cart as $product) {
+            $price = $price + ($product['object']->getPriceWt() * $product['qty']);
         }
 
         return $price;
@@ -96,21 +96,19 @@ class Cart
 
     /*
      * remove()
-     * Function to completely clear the shopping cart.
+     * Fonction permettant de supprimer totalement le panier
      */
     public function remove()
     {
-        // Remove the entire cart from the session
-        return $this->getCart();
+        return $this->requestStack->getSession()->remove('cart');
     }
 
     /*
      * getCart()
-     * Function to return the shopping cart.
+     * Fonction retournant le panier
      */
     public function getCart()
     {
-        // Retrieve and return the cart from the session
         return $this->requestStack->getSession()->get('cart');
     }
 }

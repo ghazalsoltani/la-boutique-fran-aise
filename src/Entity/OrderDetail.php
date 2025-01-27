@@ -60,7 +60,7 @@ class OrderDetail
         return $this;
     }
 
-    public function getIllustration(): ?string
+    public function getProductIllustration(): ?string
     {
         return $this->productIllustration;
     }
