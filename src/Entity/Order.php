@@ -18,8 +18,15 @@ class Order
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $CreatedAt = null;
+    private ?\DateTimeInterface $createdAt = null;
 
+    /*
+     * 1 : En attente de paiement
+     * 2 : Paiement validé
+     * 3 : En cours de préparation
+     * 4 : Expédié
+     * 5 : Annulée
+     */
     #[ORM\Column]
     private ?int $state = null;
 
@@ -32,15 +39,15 @@ class Order
     #[ORM\Column(type: Types::TEXT)]
     private ?string $delivery = null;
 
-    /**
-     * @var Collection<int, OrderDetail>
-     */
-    #[ORM\OneToMany(targetEntity: OrderDetail::class, mappedBy: 'myOrder', cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'myOrder', targetEntity: OrderDetail::class, cascade: ['persist'])]
     private Collection $orderDetails;
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $stripe_session_id = null;
 
     public function __construct()
     {
@@ -74,7 +81,6 @@ class Order
         return $totalTva;
     }
 
-
     public function getId(): ?int
     {
         return $this->id;
@@ -82,12 +88,12 @@ class Order
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->CreatedAt;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $CreatedAt): static
+    public function setCreatedAt(\DateTimeInterface $createdAt): static
     {
-        $this->CreatedAt = $CreatedAt;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -178,6 +184,18 @@ class Order
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getStripeSessionId(): ?string
+    {
+        return $this->stripe_session_id;
+    }
+
+    public function setStripeSessionId(?string $stripe_session_id): static
+    {
+        $this->stripe_session_id = $stripe_session_id;
 
         return $this;
     }

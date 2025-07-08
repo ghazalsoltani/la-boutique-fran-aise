@@ -26,7 +26,7 @@ class OrderDetail
     private ?int $productQuantity = null;
 
     #[ORM\Column]
-    private ?float $productPrice = null;
+    private ?float$productPrice = null;
 
     #[ORM\Column]
     private ?float $productTva = null;
