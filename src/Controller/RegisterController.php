@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Classe\Mail;
 use App\Entity\User;
 use App\Form\RegisterUserType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -35,6 +36,13 @@ class RegisterController extends AbstractController
                 "Votre compte est correctement créé, veuillez vous connecter."
             );
 
+            // Envoie d'un email de confirmation d'inscription
+            $mail = new Mail();
+            $vars = [
+                'firstname' => $user->getFirstname()
+            ];
+            $mail->send($user->getEmail(),$user->getFirstname().''.$user->getLastname(), 'la boutique Française', template: 'welcome.html', vars: $vars);
+
             return $this->redirectToRoute('app-login');
         }
         return $this->render('register/index.html.twig', [
@@ -42,4 +50,3 @@ class RegisterController extends AbstractController
             ]);
     }
 }
-
