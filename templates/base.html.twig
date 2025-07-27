@@ -37,16 +37,16 @@
                 </ul>
                 <div class="speed-menu">
                     {% if app.user %}
-                        <a href="{{ path('app_account') }}"><i data-feather="user"></i> {{ app.user.firstname }}</a>
+                        <a href="{{ path('app_account') }}"><i data-feather="user"></i>{{ app.user.firstname }}</a>
 
-                        {#<a href="{{ path('app_account_wishlist') }}">
+                        <a href="{{ path('app_account_wishlist') }}">
                             <i data-feather="heart"></i>
-                        </a>#}
+                        </a>
                     {% else %}
                         <a href="{{ path('app_login') }}"><i data-feather="user"></i></a>
                     {% endif %}
 
-                    <a href="{{ path('app_cart') }}">
+                    <a href="{{ path('app_cart') }}" >
                         <i data-feather="shopping-cart"></i>
                         <span class="badge text-bg-light">{{ fullCartQuantity }}</span>
                     </a>
