@@ -41,7 +41,7 @@ class RegisterController extends AbstractController
             $vars = [
                 'firstname' => $user->getFirstname()
             ];
-            $mail->send($user->getEmail(),$user->getFirstname().''.$user->getLastname(), 'la boutique Française', template: 'welcome.html', vars: $vars);
+            $mail->send($user->getEmail(),$user->getFirstname().' '.$user->getLastname(), 'la boutique Française','welcome.html', $vars);
 
             return $this->redirectToRoute('app-login');
         }
